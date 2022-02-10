@@ -25,15 +25,18 @@ $_SESSION['get'] = true;
         <input type="submit" name="preset" value="Beacon">
         <input type="submit" name="preset" value="Pulsar">
         <input type="submit" name="preset" value="Pentadecathlon">
-        <br><br>
+        <br>
         <h3>Others</h3>
         <input type="submit" name="preset" value="Random">
-        <br><br>
-        <label for="speed">Speed: </label>
+        <br>
+        <h3>Speed</h3>
+        <label for="speed"></label>
         <select name="Speed" id="speed">
-            <option value="2">Slow</option>
+            <option value="0.5">Slow</option>
             <option selected="selected" value="1">Normal</option>
-            <option value="0.5">Fast</option>
+            <option value="2">Fast</option>
+            <option value="4">Very Fast</option>
+            <option value="10">Fast and Furious</option>
         </select>
         <!--
         <h3>Spaceships</h3>

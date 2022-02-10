@@ -1,7 +1,8 @@
 <?php
+// TODO check errors (in query)
 require "logic.php";
 session_start();
-header("Refresh: 1");
+header("Refresh: " . ($_SESSION['speed'] ?? 1));
 
 /*
  * CREATE JSON
@@ -15,8 +16,10 @@ $_SESSION["matrix"][4][6] = true;
 file_put_contents("Pentadecathlon.json", json_encode($_SESSION["matrix"]));
 */
 
+// first time
 if (isset($_SESSION['get'])) {
     unset($_SESSION['get']);
+    $_SESSION['Speed'] = $_GET['Speed'];
 
     // create and initialize the matrix
     if ($_GET['preset'] == "Random") {
