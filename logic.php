@@ -1,4 +1,5 @@
 <?php
+// Giacchini Valerio - 5AIN
 
 /*
  * @param matrix -> the game table
@@ -12,7 +13,7 @@ function get_new_state($matrix, $x0, $y0): bool
     $life_around = alive_around($matrix, $x0, $y0);
 
     // dead cell rule
-    if(!$matrix[$y0][$x0])
+    if (!$matrix[$y0][$x0])
         return $life_around == 3;
 
     // alive cell rules
@@ -30,12 +31,12 @@ function alive_around($matrix, $x0, $y0): int
     // the number of the alive cell around
     $life_around = 0;
 
-    for($i = 0; $i < 360; $i += 45) {
+    for ($i = 0; $i < 360; $i += 45) {
         $x = $x0 + round(sin(deg2rad($i)));
         $y = $y0 + round(cos(deg2rad($i)));
 
         // if the cell is alive count it
-        if(isset($matrix[$y][$x]))
+        if (isset($matrix[$y][$x]))
             if ($matrix[$y][$x])
                 $life_around++;
     }
@@ -51,7 +52,7 @@ function matrixToHtmlTable($matrix): string
 {
     $table = "<table>";
 
-    foreach ($_SESSION["matrix"] as $y => $row){
+    foreach ($_SESSION["matrix"] as $y => $row) {
         $table .= "<tr>";
         foreach ($row as $x => $col)
             $table .= "<td class=' " . ($matrix[$y][$x] ? "alive" : "dead") . " '></td>";

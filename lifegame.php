@@ -1,5 +1,6 @@
 <?php
-// TODO check errors (in query)
+// Giacchini Valerio - 5AIN
+// TODO check errors (in url get)
 require "logic.php";
 session_start();
 header("Refresh: " . ($_SESSION['speed'] ?? 1));
@@ -20,6 +21,7 @@ file_put_contents("Pentadecathlon.json", json_encode($_SESSION["matrix"]));
 if (isset($_SESSION['get'])) {
     unset($_SESSION['get']);
     $_SESSION['Speed'] = $_GET['Speed'];
+    $_SESSION['gen'] = 1;
 
     // create and initialize the matrix
     if ($_GET['preset'] == "Random") {
@@ -33,6 +35,7 @@ if (isset($_SESSION['get'])) {
 }
 
 else {
+    $_SESSION['gen']++;
     $temp_matrix = $_SESSION["matrix"];
 
     foreach ($_SESSION["matrix"] as $y => $row)
@@ -47,7 +50,7 @@ else {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Life Game</title>
     <style>
         td, tr {
             height: 20px;
@@ -62,8 +65,7 @@ else {
     </style>
 </head>
 <body>
-    <?php
-    echo matrixToHtmlTable($_SESSION["matrix"]);
-    ?>
+<h1>Generation <?php echo $_SESSION['gen'] ?></h1>
+<?php echo matrixToHtmlTable($_SESSION["matrix"]); ?>
 </body>
 </html>
