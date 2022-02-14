@@ -1,7 +1,8 @@
 <?php
 // Giacchini Valerio - 5AIN
 // TODO check errors (in url get)
-require "logic.php";
+require "LifeMatrix.php";
+
 session_start();
 header("Refresh: " . ($_SESSION['speed'] ?? 1));
 
@@ -21,29 +22,17 @@ file_put_contents("Pentadecathlon.json", json_encode($_SESSION["matrix"]));
 if (isset($_SESSION['get'])) {
     unset($_SESSION['get']);
     $_SESSION['Speed'] = $_GET['Speed'];
-    $_SESSION['gen'] = 1;
 
     // create and initialize the matrix
-    if ($_GET['preset'] == "Random") {
-        $_SESSION["matrix"] = array();
-        for($i = 0; $i < 20; $i++)
-            for($j = 0; $j < 20; $j++)
-                $_SESSION["matrix"][$i][$j] = rand(1, 4) == 4;
-    }
+    if ($_GET['preset'] == "Random")
+        $_SESSION['matrix'] = new LifeMatrix(true, 20, 20);
+
     else
-        $_SESSION["matrix"] = json_decode(file_get_contents('Presets/' . $_GET['preset'] . '.json'), true);
+        $_SESSION['matrix'] = new LifeMatrix(false, 0, 0, $_GET['preset']);
 }
 
-else {
-    $_SESSION['gen']++;
-    $temp_matrix = $_SESSION["matrix"];
-
-    foreach ($_SESSION["matrix"] as $y => $row)
-        foreach ($row as $x => $col)
-            $temp_matrix[$y][$x] = get_new_state($_SESSION["matrix"], $x, $y);
-
-    $_SESSION["matrix"] = $temp_matrix;
-}
+else
+    $_SESSION["matrix"]->update();
 ?>
 <!DOCTYPE html>
 <html lang="">
@@ -65,7 +54,7 @@ else {
     </style>
 </head>
 <body>
-<h1>Generation <?php echo $_SESSION['gen'] ?></h1>
-<?php echo matrixToHtmlTable($_SESSION["matrix"]); ?>
+<h1>Generation <?php echo $_SESSION["matrix"]->gen ?></h1>
+<?php echo $_SESSION["matrix"]->matrix2html_table(); ?>
 </body>
 </html>

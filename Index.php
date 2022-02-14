@@ -1,7 +1,6 @@
 <?php
 // Giacchini Valerio - 5AIN
 session_start();
-
 $_SESSION['get'] = true;
 ?>
 
