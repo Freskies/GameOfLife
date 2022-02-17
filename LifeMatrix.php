@@ -26,8 +26,8 @@ class LifeMatrix
     {
         $matrix = array();
 
-        for($c = 0; $c < $col; $c++)
-            for($r = 0; $r < $row; $r++)
+        for($r = 0; $r < $row; $r++)
+            for($c = 0; $c < $col; $c++)
                 $matrix[$r][$c] = rand(1, $percent) == $percent;
 
         return $matrix;
@@ -58,7 +58,6 @@ class LifeMatrix
     }
 
     /*
-     * @param matrix -> the game table
      * @param x0 -> the x of the cell to check
      * @param y0 -> the y of the cell to check
      * return a bool -> true if the cell is alive and false if is dead
@@ -77,7 +76,6 @@ class LifeMatrix
     }
 
     /*
-     * @param matrix -> the game table
      * @param x -> the x of the cell to check
      * @param y -> the y of the cell to check
      * return int -> the number of the cells alive around the cell to check
